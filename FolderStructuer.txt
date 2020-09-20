@@ -1,0 +1,50 @@
+git status
+
+git add .
+
+git commit -m "add new file"
+
+git push
+
+folder structuer
+	
+	css
+	fonts
+	images
+	js
+	db
+--------------------------
+	Servlets_pack
+		RegForm.java
+		UserProfile.java (update user profile)
+		LoginForm.java
+		AddProducts.java
+		CustomizeProducts.java
+		Contact.java
+		BuyProducts.java
+	Userbeans_pack (geter & seter Methods)
+		RegFormBeans.java
+		UserProfileBeans.java
+		AddProductBeans.java
+		CustomizeProductBeans.java
+		ContactBeans.java
+		BuyProductBeans.java
+	DBM_pack
+		DBConnection.java
+--------------------------
+	index.jsp
+	productpage.jsp
+	category.jsp
+	contact.jsp
+	help.jsp
+--------------------------
+	header.jsp
+	headerlog.jsp
+	footer.jsp
+--------------------------
+	AdminPage.jsp
+	
+	
+
+
+
