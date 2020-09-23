@@ -77,7 +77,14 @@
                                 <div class="nav-b hidden-xs">
                                     <div class="nav-box">
                                         <ul>
-                                            <li><a href="UserProfile.jsp">Profile</a></li>
+                                            <li><a href="UserProfile.jsp">Customize Profile</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="nav-b hidden-xs">
+                                    <div class="nav-box">
+                                        <ul>
+                                            <li><a href="UserCart.jsp"><i class="fa fa-cart-plus"></i> Your Cart</a></li>
                                         </ul>
                                     </div>
                                 </div>
