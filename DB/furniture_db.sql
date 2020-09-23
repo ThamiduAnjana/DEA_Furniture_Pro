@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 22, 2020 at 09:14 PM
+-- Generation Time: Sep 23, 2020 at 10:10 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.2.31
 
@@ -35,17 +35,29 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_name` varchar(50) NOT NULL,
   `user_email` varchar(50) NOT NULL,
   `password` varchar(25) NOT NULL,
+  `addressline1` varchar(50) DEFAULT NULL,
+  `addressline2` varchar(50) DEFAULT NULL,
+  `city` varchar(20) DEFAULT NULL,
+  `province` varchar(20) DEFAULT NULL,
+  `postalcode` varchar(20) DEFAULT NULL,
+  `phonenum` varchar(20) DEFAULT NULL,
+  `mobilenum` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 
 --
+-- Truncate table before insert `users`
+--
+
+TRUNCATE TABLE `users`;
+--
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `user_name`, `user_email`, `password`) VALUES
-(1, 'test', 'test', 'test'),
-(2, 'abc', 'abc', 'abc'),
-(3, 'Admin', 'Admin', '123');
+INSERT INTO `users` (`user_id`, `user_name`, `user_email`, `password`, `addressline1`, `addressline2`, `city`, `province`, `postalcode`, `phonenum`, `mobilenum`) VALUES
+(1, 'test', 'test', 'test', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 'abc', 'abc', 'abc', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 'Admin', 'Admin', '123', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

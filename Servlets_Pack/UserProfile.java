@@ -8,7 +8,6 @@ package Servlets_Pack;
 import DBM_Pack.DBConnection;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,14 +17,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author user
+ * @author User
  */
-@WebServlet(name = "LoginForm", urlPatterns = {"/LoginForm"})
-public class LoginForm extends HttpServlet {
+@WebServlet(name = "UserProfile", urlPatterns = {"/UserProfile"})
+public class UserProfile extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,10 +42,10 @@ public class LoginForm extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginForm</title>");
+            out.println("<title>Servlet UserProfile</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoginForm at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet UserProfile at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -81,53 +79,48 @@ public class LoginForm extends HttpServlet {
             throws ServletException, IOException {
         //processRequest(request, response);
 
-        ResultSet rs;
+        int UserID = Integer.parseInt(request.getParameter("Uid"));
+        String UserName = request.getParameter("Uname");
+        String Email = request.getParameter("email");
+        String password = request.getParameter("pass");
+        String password2 = request.getParameter("pass2");
+        String address1 = request.getParameter("address1");
+        String address2 = request.getParameter("address2");
 
-        String UserName = request.getParameter("userName");
-        String Password = request.getParameter("password");
+        String city = request.getParameter("city");
+        String province = request.getParameter("province");
+        String postalCode = request.getParameter("pcode");
+        String num1 = request.getParameter("num1");
+        String num2 = request.getParameter("num2");
 
-        if (!UserName.equals("") && !Password.equals("")) {
-            try {
-                //Include DB Connection
-                DBConnection obj = new DBConnection();
-                obj.DB_connection();
+        if (!UserName.equals("") && !Email.equals("") && !password.equals("") && !password2.equals("") && !address1.equals("")
+                && !address2.equals("") && !city.equals("") && !province.equals("") && !postalCode.equals("") && !num1.equals("") && !num2.equals("")) {
+            if (password.equals(password2)) {
+                try {
+                    //Include DB Connection
+                    DBConnection obj = new DBConnection();
+                    obj.DB_connection();
 
-                String SQL = "select * from users where user_name = '" + UserName + "' and password = '" + Password + "';";
+                    //Add Data for users table
+                    String SQL = "update users set user_name='" + UserName + "',user_email='" + Email + "',password='" + password + "',addressline1='" + address1 + "',"
+                            + "addressline2='" + address2 + "',city='" + city + "',province='" + province + "',postalcode='" + postalCode + "',phonenum='" + num1 + "',mobilenum='" + num2 + "'"
+                            + "where user_id="+UserID+";";
 
-                rs = obj.st.executeQuery(SQL);
-
-                if (rs.next()) {
-
-                    HttpSession sessionLog = request.getSession();
-                    sessionLog.setAttribute("sessionLog", "T");
-                    
-                    String UseridV = rs.getString("user_id");
-                    HttpSession sessionUserId = request.getSession();
-                    sessionUserId.setAttribute("sessionUserId", UseridV);
-                    
-                    String UserNameV = rs.getString("user_name");
-                    HttpSession sessionUserName = request.getSession();
-                    sessionUserName.setAttribute("sessionUserName", UserNameV);
-
-                    RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-                    rd.forward(request, response);
-
-                } else {
-                    HttpSession sessionLog = request.getSession();
-                    sessionLog.setAttribute("sessionLog", "F");
+                    obj.st.executeUpdate(SQL);
 
                     RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
                     rd.forward(request, response);
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(UserProfile.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (SQLException ex) {
-                Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+            } else {
+                RequestDispatcher rd = request.getRequestDispatcher("UserProfile.jsp");
+                rd.forward(request, response);
             }
 
         } else {
-            HttpSession sessionLog = request.getSession();
-            sessionLog.setAttribute("sessionLog", "F");
-
-            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("UserProfile.jsp");
             rd.forward(request, response);
         }
     }
